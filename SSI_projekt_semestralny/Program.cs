@@ -25,6 +25,8 @@ namespace SSI_projekt_semestralny
             
             //foreach (var k in wknnwynik.Keys) { Console.Write("{0}: {1}, ",k,knnwynik[k]); }
             //kpina to polaczenie z gitem
+            //jednak to działa
+            //jebać żydów i cześć
 
             //IDictionary<string, int> dict0 = new Dictionary<string, int>() { { "radek", 0 }, { "radekm", 1 }, { "rade", 0 } };
             //IDictionary<string, int> dict1 = new Dictionary<string, int>() { { "radek", 0 }, { "radekm", 1 }, { "rade", 0 } };
