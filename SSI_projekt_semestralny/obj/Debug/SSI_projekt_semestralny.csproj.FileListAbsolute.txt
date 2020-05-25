@@ -5,3 +5,10 @@ C:\Users\profsor500\Desktop\Studia\SystemySztucznejInteligencji\SSI_projekt_seme
 C:\Users\profsor500\Desktop\Studia\SystemySztucznejInteligencji\SSI_projekt_semestralny\SSI_projekt_semestralny\obj\Debug\SSI_projekt_semestralny.csproj.CoreCompileInputs.cache
 C:\Users\profsor500\Desktop\Studia\SystemySztucznejInteligencji\SSI_projekt_semestralny\SSI_projekt_semestralny\obj\Debug\SSI_projekt_semestralny.exe
 C:\Users\profsor500\Desktop\Studia\SystemySztucznejInteligencji\SSI_projekt_semestralny\SSI_projekt_semestralny\obj\Debug\SSI_projekt_semestralny.pdb
+C:\Users\profsor500\Source\Repos\profsor500\SSI_projekt\SSI_projekt_semestralny\bin\Debug\SSI_projekt_semestralny.exe.config
+C:\Users\profsor500\Source\Repos\profsor500\SSI_projekt\SSI_projekt_semestralny\bin\Debug\SSI_projekt_semestralny.exe
+C:\Users\profsor500\Source\Repos\profsor500\SSI_projekt\SSI_projekt_semestralny\bin\Debug\SSI_projekt_semestralny.pdb
+C:\Users\profsor500\Source\Repos\profsor500\SSI_projekt\SSI_projekt_semestralny\obj\Debug\SSI_projekt_semestralny.csprojAssemblyReference.cache
+C:\Users\profsor500\Source\Repos\profsor500\SSI_projekt\SSI_projekt_semestralny\obj\Debug\SSI_projekt_semestralny.csproj.CoreCompileInputs.cache
+C:\Users\profsor500\Source\Repos\profsor500\SSI_projekt\SSI_projekt_semestralny\obj\Debug\SSI_projekt_semestralny.exe
+C:\Users\profsor500\Source\Repos\profsor500\SSI_projekt\SSI_projekt_semestralny\obj\Debug\SSI_projekt_semestralny.pdb
