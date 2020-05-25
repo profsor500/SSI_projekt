@@ -20,7 +20,7 @@ namespace SSI_projekt_semestralny
             {"WindSpeed", windspeed},//prędkość wiatru [0;] (m/s)
             {"Cloudy", cloudy},//zachmurznie [0;100](%)
             {"RainFall", rainfall},//Opady deszczu [0;100]
-            {"h slon", h},//Opady śniegu [0;100], dla uproszczenia są jednoznaczne z ilością śniego w sportach zimowych
+            {"SunnyH", h},//Opady śniegu [0;100], dla uproszczenia są jednoznaczne z ilością śniego w sportach zimowych
             {"Uv", uv},//Opady gradu [0;100]
             };
             //słownik sugerujący, co najlepiej robić danego dnia, z automatu przypisane po użyciu metody obiekt.AdjustProposition()
@@ -78,24 +78,24 @@ namespace SSI_projekt_semestralny
         }
         int Walk() 
         {
-            if ((this.WeatherConditions["Storm"] == 1 || this.WeatherConditions["RainFall"] > 70) && this.WeatherConditions["h slon"] <= 3 ) return 0;
+            if ((this.WeatherConditions["Storm"] == 1 || this.WeatherConditions["RainFall"] > 70) && this.WeatherConditions["SunnyH"] <= 3 ) return 0;
             else if (this.WeatherConditions["Uv"] >= 8 && this.WeatherConditions["Cloudy"] <70) return 0;
-            else if (this.WeatherConditions["RainFall"] > 70 && this.WeatherConditions["h slon"] <= 3) return 0;
+            else if (this.WeatherConditions["RainFall"] > 70 && this.WeatherConditions["SunnyH"] <= 3) return 0;
             return 1;
         }
         int Workout() 
         {
-            if (this.WeatherConditions["Storm"] == 1 && this.WeatherConditions["h slon"] <= 3) return 0;
-            else if (this.WeatherConditions["Uv"] >= 8 && this.WeatherConditions["h slon"] > 8) return 0;
-            else if (this.WeatherConditions["RainFall"] > 70 && this.WeatherConditions["h slon"] <= 3) return 0;
+            if (this.WeatherConditions["Storm"] == 1 && this.WeatherConditions["SunnyH"] <= 3) return 0;
+            else if (this.WeatherConditions["Uv"] >= 8 && this.WeatherConditions["SunnyH"] > 8) return 0;
+            else if (this.WeatherConditions["RainFall"] > 70 && this.WeatherConditions["SunnyH"] <= 3) return 0;
             else if (this.WeatherConditions["Temp"] > 25) return 0;
             return 1;
         }
         int Beaching()
         {
-            if (this.WeatherConditions["Storm"] == 1 || this.WeatherConditions["h slon"] <= 3) return 0;
+            if (this.WeatherConditions["Storm"] == 1 || this.WeatherConditions["SunnyH"] <= 3) return 0;
             else if (this.WeatherConditions["Uv"] >= 8 || this.WeatherConditions["Uv"] <= 4) return 0;
-            else if (this.WeatherConditions["RainFall"] > 70 && this.WeatherConditions["h slon"] <= 3) return 0;
+            else if (this.WeatherConditions["RainFall"] > 70 && this.WeatherConditions["SunnyH"] <= 3) return 0;
             else if (this.WeatherConditions["Temp"] < 20) return 0;
             return 1;
         }
