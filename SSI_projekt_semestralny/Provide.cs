@@ -27,7 +27,6 @@ namespace SSI_projekt_semestralny
             var UvLims = SetLims(dzien.WeatherConditions["Uv"], 3);
             foreach (var key in dzien.Proposition.Keys)
             {
-                //na tak(1)
                 int[] DecCount = {0 ,0};
                 int[] TempCount = { 0, 0 };
                 int[] StormCount = { 0, 0 };
@@ -37,7 +36,6 @@ namespace SSI_projekt_semestralny
                 int[] SunnyHCount = { 0, 0 };
                 int[] UvCount = { 0, 0 };
                 double[] result = { 0, 0 };
-                Console.WriteLine(key);
                 foreach (var day in DaysList)
                 {
                     if (day.Proposition[key] == 1) 
@@ -96,7 +94,7 @@ namespace SSI_projekt_semestralny
                 }
                 else { WrongLine++; }
             }
-            Console.WriteLine("nie udało się przekonwertować {0} na {1} wszystkich wyrazów", WrongLine, lines.Length-1);
+            if(WrongLine>0) Console.WriteLine("nie udało się przekonwertować {0} na {1} wszystkich wyrazów", WrongLine, lines.Length-1);
         }
         
         public void GetDays(string path, int number)
@@ -114,7 +112,7 @@ namespace SSI_projekt_semestralny
                 }
                 else WrongLine++;
             }
-            Console.WriteLine("udało się przekonwertować {0} na {1} wszystkich wyrazów", WrongLine, number);
+            if (WrongLine > 0) Console.WriteLine("nie udało się przekonwertować {0} na {1} wszystkich wyrazów", WrongLine, lines.Length - 1);
         }
 
         //Wyswietlanie listy
@@ -177,7 +175,7 @@ namespace SSI_projekt_semestralny
                 bool nieznaleziono = true;
                 for (int j = 0; j < propos.Count; j++)
                 {// jeżeli propozycja się powtarze, to zwiększamy liczni o Math.Sqrt(1 - Math.Sqrt(kdistances[i].distance / maxd)), czyli pierwiastek z 1 minus pierwiastek z aktualny dystans podzielone przez max dystans
-                    if (propos[j].Count == kdistances[i].day.Proposition.Count && !propos[j].Except(kdistances[i].day.Proposition).Any()) { proposCount[j] += Math.Sqrt(1 - Math.Sqrt(kdistances[i].distance / maxd)); nieznaleziono = false; Console.WriteLine(Math.Sqrt(1 - Math.Sqrt(kdistances[i].distance / maxd))); break; };
+                    if (propos[j].Count == kdistances[i].day.Proposition.Count && !propos[j].Except(kdistances[i].day.Proposition).Any()) { proposCount[j] += Math.Sqrt(1 - Math.Sqrt(kdistances[i].distance / maxd)); nieznaleziono = false; break; };
                 }
                 if (nieznaleziono)
                 {
