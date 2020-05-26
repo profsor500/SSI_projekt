@@ -15,6 +15,42 @@ namespace SSI_projekt_semestralny
         {
             DaysList = new List<Day>();
         }
+        public void MultiMethodsComparison(string pathtodataset)
+        {
+            //pierwsza zmienna przetrzymuje ilosc poprawnyhc pojedynczych, a reszta tylko poprawne dni.
+            var CorrectKNN = new int[] { 0, 0 };
+            var CorrectWKNN = new int[] { 0, 0 };
+            var CorrectBayes = new int[] { 0, 0 };
+            var lines = File.ReadAllLines(@pathtodataset);
+            Day dzien;
+            foreach (var line in lines.Skip(1).ToArray())
+            {
+                string l = line.Replace("\t", "");
+                double[] double_line = Array.ConvertAll(l.Split(';'), Double.Parse);
+                //trochę sztywne, ale działa
+                if (double_line.Length == 7)
+                {
+                    dzien = new Day(double_line[0], double_line[1], double_line[2], double_line[3], double_line[4], double_line[5], double_line[6]);
+                    dzien.AdjustProposition();
+                    var wknndict = WKNN(dzien, 10);
+                    var knndict = KNN(dzien, 10);
+                    var bayesdict = Bayes(dzien);
+                    if (dzien.Proposition.Count == wknndict.Count && !dzien.Proposition.Except(wknndict).Any()) { CorrectWKNN[0] += 4; CorrectWKNN[1] += 1; }
+                    else { foreach (var key in wknndict.Keys) if (wknndict[key] == dzien.Proposition[key]) CorrectWKNN[0]++; }
+
+                    if (dzien.Proposition.Count == knndict.Count && !dzien.Proposition.Except(knndict).Any()) { CorrectKNN[0] += 4; CorrectKNN[1] += 1; }
+                    else { foreach (var key in knndict.Keys) if (knndict[key] == dzien.Proposition[key]) CorrectKNN[0]++; }
+
+                    if (dzien.Proposition.Count == bayesdict.Count && !dzien.Proposition.Except(bayesdict).Any()) { CorrectBayes[0] += 4; CorrectBayes[1] += 1; }
+                    else { foreach (var key in bayesdict.Keys) if (bayesdict[key] == dzien.Proposition[key]) CorrectBayes[0]++; }
+                }
+
+            }
+            Console.WriteLine("KNN  : {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectKNN[0], lines.Length * 4, CorrectKNN[1], lines.Length);
+            Console.WriteLine("WKNN : {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectWKNN[0], lines.Length * 4, CorrectWKNN[1], lines.Length);
+            Console.WriteLine("Bayes: {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectBayes[0], lines.Length * 4, CorrectBayes[1], lines.Length);
+        }    
+
         public IDictionary<string, int> Bayes(Day dzien) 
         {
             var ResultPropositions = new Dictionary<string, int>();
