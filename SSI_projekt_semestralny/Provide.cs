@@ -15,13 +15,17 @@ namespace SSI_projekt_semestralny
         {
             DaysList = new List<Day>();
         }
-        public void MultiMethodsComparison(string pathtodataset)
+        public int DaysCount() 
+        {
+            return DaysList.Count;
+        }
+        public void MultiMethodsComparison(int k, string pathtodataset)
         {
             //pierwsza zmienna przetrzymuje ilosc poprawnyhc pojedynczych, a reszta tylko poprawne dni.
             var CorrectKNN = new int[] { 0, 0 };
             var CorrectWKNN = new int[] { 0, 0 };
             var CorrectBayes = new int[] { 0, 0 };
-            var lines = File.ReadAllLines(@pathtodataset);
+            var lines = File.ReadAllLines( @pathtodataset);
             Day dzien;
             foreach (var line in lines.Skip(1).ToArray())
             {
@@ -32,8 +36,8 @@ namespace SSI_projekt_semestralny
                 {
                     dzien = new Day(double_line[0], double_line[1], double_line[2], double_line[3], double_line[4], double_line[5], double_line[6]);
                     dzien.AdjustProposition();
-                    var wknndict = WKNN(dzien, 10);
-                    var knndict = KNN(dzien, 10);
+                    var wknndict = WKNN(dzien, k);
+                    var knndict = KNN(dzien, k);
                     var bayesdict = Bayes(dzien);
                     if (dzien.Proposition.Count == wknndict.Count && !dzien.Proposition.Except(wknndict).Any()) { CorrectWKNN[0] += 4; CorrectWKNN[1] += 1; }
                     else { foreach (var key in wknndict.Keys) if (wknndict[key] == dzien.Proposition[key]) CorrectWKNN[0]++; }
@@ -46,9 +50,9 @@ namespace SSI_projekt_semestralny
                 }
 
             }
-            Console.WriteLine("KNN  : {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectKNN[0], lines.Length * 4, CorrectKNN[1], lines.Length);
-            Console.WriteLine("WKNN : {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectWKNN[0], lines.Length * 4, CorrectWKNN[1], lines.Length);
-            Console.WriteLine("Bayes: {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectBayes[0], lines.Length * 4, CorrectBayes[1], lines.Length);
+            Console.WriteLine("KNN  : {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectKNN[0], (lines.Length-1) * 4, CorrectKNN[1], (lines.Length - 1));
+            Console.WriteLine("WKNN : {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectWKNN[0], (lines.Length - 1) * 4, CorrectWKNN[1], (lines.Length - 1));
+            Console.WriteLine("Bayes: {0} na {1} poprawnych czynności, {2} na {3} idealnie dopasowanych dni", CorrectBayes[0], (lines.Length - 1) * 4, CorrectBayes[1], (lines.Length - 1));
         }    
 
         public IDictionary<string, int> Bayes(Day dzien) 
@@ -175,8 +179,6 @@ namespace SSI_projekt_semestralny
             var propos = new List<IDictionary<string, int>>(); //budujemy listę słowników przetrzymującą propozycje, co robić aktualnego dnia
             var proposCount = new List<int>();//lista, zawierająca licnzik powtórzeń, ile razy wystąpiła dana propozycja; proposCount[i] - ilość powtórzeń propozycji propos[i] 
             foreach (var d in kdistances)
-                //Console.WriteLine(d.day.toString());
-
 
                 for (int i = 0; i < kdistances.Count; i++)//każdy z k najblizszych
                 {
@@ -220,7 +222,6 @@ namespace SSI_projekt_semestralny
                 }
 
             }
-            //Console.WriteLine("spośród {0} najbliższych obiektów {1}: ", k, proposCount.Max());
             return propos[proposCount.IndexOf(proposCount.Max())];
         }
         struct knnStruct
